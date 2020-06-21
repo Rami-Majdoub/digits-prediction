@@ -77,6 +77,8 @@ function gotResults(err, result) {
 
   if (result.confidencesByLabel) {
     const confidences = result.confidencesByLabel;
+    
+    console.log(confidences);
     if (result.label){
       console.log(result.label);
       predictionText.html('i think that this is a ', result.label);
