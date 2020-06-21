@@ -64,7 +64,7 @@ function mouseReleased() {
 function predict(){
   if (knnClassifier !== undefined){ // still loading
     // transform the canvas to input
-    let input = [0,0,8,15,16,13,0,0,0,1,11,9,11,16,1,0,0,0,0,0,7,14,0,0,0,0,3,4,14,12,2,0,0,1,16,16,16,16,10,0,0,2,12,16,10,0,0,0,0,0,2,16,4,0,0,0,0,0,9,14,0,0,0,0];
+    let input = [0,0,10,16,6,0,0,0,0,7,16,8,16,5,0,0,0,11,16,0,6,14,3,0,0,12,12,0,0,11,11,0,0,12,12,0,0,8,12,0,0,7,15,1,0,13,11,0,0,0,16,8,10,15,3,0,0,0,10,16,15,3,0,0];
   
     // use the model to predict the digit
     knnClassifier.classify(input, gotResults);
@@ -81,7 +81,7 @@ function gotResults(err, result) {
     console.log(confidences);
     if (result.label){
       console.log(result.label);
-      predictionText.html('i think that this is a ', result.label);
+      predictionText.html('i think that this is a ' + result.label);
     }
   }
 }
