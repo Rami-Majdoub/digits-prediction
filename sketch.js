@@ -59,12 +59,15 @@ function mouseReleased() {
   predict();
   predictionText.html('i\'m still guessing !');
   console.log('mouse released!');
+  
+  // logCanvasPixels();
+  transformCanvasToFeatures();
 }
 
 function predict(){
   if (knnClassifier !== undefined){ // still loading
     // transform the canvas to input
-    let input = [0,0,10,16,6,0,0,0,0,7,16,8,16,5,0,0,0,11,16,0,6,14,3,0,0,12,12,0,0,11,11,0,0,12,12,0,0,8,12,0,0,7,15,1,0,13,11,0,0,0,16,8,10,15,3,0,0,0,10,16,15,3,0,0];
+    let input = transformCanvasToFeatures();
   
     // use the model to predict the digit
     knnClassifier.classify(input, gotResults);
@@ -77,13 +80,75 @@ function gotResults(err, result) {
 
   if (result.confidencesByLabel) {
     const confidences = result.confidencesByLabel;
-    
     console.log(confidences);
     if (result.label){
-      console.log(result.label);
-      predictionText.html('i think that this is a ' + result.label);
+      predictionText.html('i think that this is a ', result.label);
     }
   }
+}
+
+function transformCanvasToFeatures(){
+  loadPixels();
+  let d = pixelDensity();
+  
+  let f = [];
+  for (let x = 0; x < nbSquare; x++){
+    for (let y = 0; y < nbSquare; y++){
+      const left = x * nbPixelsInSquare;
+      const top = y * nbPixelsInSquare;
+      
+      const grayValue = getRectAvg(left, top, nbPixelsInSquare, d);
+      // ~~ converts a float to an integer
+      // for more visit https://stackoverflow.com/questions/34077449/fastest-way-to-cast-a-float-to-an-int-in-javascript/34077505
+      
+      f.push(~~map(grayValue, 0, 255, 0, 16));
+    }
+  }
+  console.log(f);
+  // console.log(f.length);
+  return f;
+}
+
+function getRectAvg(left, top, pixels, density){
+  var s = 0;
+  for (let i = 0; i < pixels; i++) {
+    for (let j = 0; j < pixels; j++) {
+      s += getPixelGray(left + i, top + j, density);
+    }
+  }
+  return s / (pixels * pixels);
+}
+
+function logCanvasPixels(){
+  loadPixels();
+  let d = pixelDensity();
+
+  let p = [];
+  for (let i = 0; i < width; i++) {
+    for (let j = 0; j < height; j++){
+      p.push(getPixelGray(i, j, d));
+    }
+  }
+  console.log(p);
+  console.log(p.length);
+}
+
+function getPixelGray(x, y, density){
+  var s = 0;
+  const d = density;
+  for (let i = 0; i < d; i++) {
+    for (let j = 0; j < d; j++) {
+      // loop over
+      index = 4 * ((y * d + j) * width * d + (x * d + i));
+      
+      s += pixels[index];
+      // pixels[index] = r;
+      // pixels[index+1] = g;
+      // pixels[index+2] = b;
+      // pixels[index+3] = a;
+    }
+  }
+  return s / (d * d);
 }
 
 function draw() {}
