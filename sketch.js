@@ -14,7 +14,7 @@ function setup() {
   initElements();
   
   predictionText.html('i\'m concentrating');
-  knnClassifier.load('./myKNN.json', modelLoaded);
+  knnClassifier.load('./models/myKNN_2.json', modelLoaded);
   
   fill(penColor);
   stroke(penColor); // no edges
