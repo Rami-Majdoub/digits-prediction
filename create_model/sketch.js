@@ -2,7 +2,7 @@ const knnClassifier = ml5.KNNClassifier();
 
 function setup() {
   // the file location
-  const fileUrl = './data/optdigits.tra.txt'
+  const fileUrl = '../data/optdigits.tra.txt'
   loadFileAndPrintToConsole(fileUrl);
 }
 

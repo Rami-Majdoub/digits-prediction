@@ -7,7 +7,7 @@ const pading = 2;
 const edgeSize = smallEdgeSize * edges;
 
 async function setup() {
-  await loadFile('./data/optdigits.tra.txt');
+  await loadFile('../data/optdigits.tra.txt');
   
   const w = (edgeSize + pading) * samplePerColumn;
   const h = (edgeSize + pading) * samplePerRow;
