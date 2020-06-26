@@ -2,7 +2,7 @@
 https://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits
 
 ### Classifier:
-https://learn.ml5js.org/docs/#/reference/knn-classifier
+https://learn.ml5js.org/docs/#/reference/knn-classifier <br>
 https://github.com/ml5js/ml5-examples/tree/release/p5js/KNNClassification/KNNClassification_PoseNet
 
 ### ml5 example:
