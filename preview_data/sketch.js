@@ -1,10 +1,12 @@
-const samplePerColumn = 10;
-const samplePerRow = 10;
+const samplePerColumn = 15;
+const samplePerRow = 15;
 
 const edges = 8;
-const smallEdgeSize = 5;
-const pading = 2;
+const smallEdgeSize = 2;
+const pading = 5;
 const edgeSize = smallEdgeSize * edges;
+
+var infoTxt;
 
 async function setup() {
   await loadFile('../data/optdigits.tra.txt');
@@ -13,17 +15,26 @@ async function setup() {
   const h = (edgeSize + pading) * samplePerRow;
   // I will draw the representation of the input and its value in the right
   const canvas = createCanvas(w, h);
+  canvas.parent('canvasContainer');
   
-  background(0);
+  infoTxt = select('#info');
+  
   noLoop();
   noStroke();
   
-  drawSamples();
+  drawSamples(0);
   
   // console.log('drawing Complete');
 }
 
-function drawSamples(){
+function drawSamples(index){
+  
+  const minIndex = index * samplePerRow * samplePerColumn;
+  const maxIndex = min(minIndex + samplePerRow * samplePerColumn, inputs.length) - 1;
+  
+  infoTxt.html('This is a preview of the training data ' + (minIndex + 1) + '-' + (maxIndex + 1)); 
+  
+  background(0);
   for (let row = 0; row < samplePerRow; row++){
     for (let col = 0; col < samplePerColumn; col++){
       
@@ -31,7 +42,9 @@ function drawSamples(){
       const x = (edgeSize + pading) * col;
       const y = (edgeSize + pading) * row;
       
-      drawSample(inputs[index], x, y);
+      if(minIndex + index < inputs.length)
+        drawSample(inputs[minIndex + index], x, y);
+      else return;
     }
   }
 }
@@ -84,7 +97,7 @@ async function loadFile(url) {
     labels.pop();
     inputs.pop();
     
-    console.log('loading Complete')
+    // console.log('loading Complete')
     
     // console.log(inputs.length);
     // console.log(labels.length);
