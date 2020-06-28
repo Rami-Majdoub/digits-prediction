@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+  <title>Digits Prediction</title>
+
   <!--P5-->
   <script src="./libs/p5.js"></script>
   <script src="./libs/p5.sound.min.js"></script>
@@ -66,10 +68,9 @@
     <div id="canvasContainer"></div>
 
     <hr class="my-2">
+    <button class="btn btn-danger" id="clearButton">Clear Canvas</button>
+    <button class="btn btn-primary" id="clearButton" onclick="drawModelView()">See what the model sees</button>
 
-    <div class="m-2">
-      <button class="btn btn-primary" id="clearButton">Clear Canvas</button>
-    </div>
     <h3 id="prediction"></h3>
 
   </div>
